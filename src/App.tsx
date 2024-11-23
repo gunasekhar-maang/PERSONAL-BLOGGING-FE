@@ -12,10 +12,18 @@ import ViewArticle from "./Components/ViewArticle/ViewArticle";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { getItem } from "./Utilities/storage";
+import { useEffect } from "react";
+import { dispatchStore } from "./Utilities/common";
+import { getLoginUserApiCall } from "./Services/GetLoginUser";
 
 const authStatus = getItem("token");
 
 function App() {
+
+  useEffect(()=>{
+    dispatchStore(getLoginUserApiCall())
+  },[])
+
   return (
     <div className="App">
       <ToastContainer position="top-right"

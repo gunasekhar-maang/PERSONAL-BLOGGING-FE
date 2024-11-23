@@ -5,7 +5,7 @@ import { authActionTypes } from "../Store/Auth";
 import { Pagination } from "react-bootstrap";
 
 // The fetchArticlesApiCall action creator
-export function fetchArticlesApiCall(page: number, size: number) {
+export function fetchArticlesApiCall(page: number, size: number, user_id: any) {
   return (dispatch: any) => {
     // Dispatch action for the start of the API call (loading state)
     dispatch({
@@ -15,21 +15,23 @@ export function fetchArticlesApiCall(page: number, size: number) {
         loader: true,
         error: null,
         pagination: {
-            current_page: page,
-            total_pages: 1, // Placeholder until data is fetched
-            total_items: 0,  // Placeholder until data is fetched
-          },
+          current_page: page,
+          total_pages: 1, // Placeholder until data is fetched
+          total_items: 0, // Placeholder until data is fetched
+        },
       },
     });
 
     // Define the API URL for fetching articles
-    const url = `${API_URL_CONSTANT.GET_ALL_ARTICLES}?page=${page}&size=${size}`;
+    const url = `${
+      API_URL_CONSTANT.GET_ALL_ARTICLES
+    }?page=${page}&size=${size}${user_id ? `&user_id=${user_id}` : ``}`;
 
     // Make the API call
     axios
       .get(url, {
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
         },
       })
       .then((response: any) => {
@@ -41,7 +43,7 @@ export function fetchArticlesApiCall(page: number, size: number) {
           type: authActionTypes.FETCH_ARTICLES,
           payload: {
             data: data, // Assuming response.data contains articles in the 'data' field
-            pagination:pagination,
+            pagination: pagination,
             loader: false,
             error: null,
           },

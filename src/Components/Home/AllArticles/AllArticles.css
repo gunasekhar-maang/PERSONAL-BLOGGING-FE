@@ -66,3 +66,19 @@
     font-weight: 500;
     text-align: left;
 }
+
+.article-section-layout{
+  width: 100% !important;
+  display: grid;
+  grid-template-columns: 20% 60%;
+}
+
+.all-articles-layout .side-bar{
+  border: 1px solid #0367a614;
+border-radius: 20px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 20px;
+margin-top: 10px;
+}
